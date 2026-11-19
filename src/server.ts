@@ -1,4 +1,5 @@
 import express, { type Application, type Request, type Response } from 'express';
+import { Pool } from 'pg';
 
 const app : Application = express()
 
@@ -7,6 +8,12 @@ const port = 5000
 app.use(express.json())
 app.use(express.text())
 app.use(express.urlencoded())
+
+const pool= new Pool({
+    connectionString : ""
+});
+
+console.log(pool);
 
 
 app.get("/", (req : Request, res : Response) => {
@@ -27,7 +34,18 @@ app.get("/users", (req : Request, res : Response) => {
 
 
 app.post("/users", (req : Request, res : Response) => {
-    console.log(req.body);
+
+    const {name , age} = req.body
+
+    res.status(201).json({
+        success : true,
+        message : "User Created Successfully",
+        author : "Mezba Morsalin",
+        data : {
+            name,
+            age
+        }
+    })
 })
 
 app.listen(port, () => {
