@@ -4,6 +4,7 @@
   "description": "",
   "main": "server.ts",
   "scripts": {
+    "dev": "tsx watch ./src/server.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,7 +20,13 @@
   },
   "homepage": "https://github.com/Mezba-Morsalin/express-fundamental-and-rest-API#readme",
   "devDependencies": {
+    "@types/express": "^5.0.6",
     "@types/node": "^26.6.6",
+    "tsx": "^4.23.15",
     "typescript": "^7.0.2"
+  },
+  "dependencies": {
+    "dotenv": "^18.0.10",
+    "express": "^5.3.0"
   }
 }
