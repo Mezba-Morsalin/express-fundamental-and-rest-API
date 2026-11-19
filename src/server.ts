@@ -1,11 +1,18 @@
-import express from "express"
+import express, { type Request, type Response } from 'express';
+
 const app = express()
+
 const port = 5000
 
-app.get('/', (req, res) => {
-  res.send('Express Server')
-})
+
+app.get("/", (req : Request, res : Response) => {
+    res.status(200).json({
+        success : true,
+        message : "This Express Root Route",
+        author : "Mezba Morsalin"
+    })
+});
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+    console.log(`Express Server is running on the ${port}`);
 })
