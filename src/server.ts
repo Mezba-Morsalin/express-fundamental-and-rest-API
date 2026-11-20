@@ -129,6 +129,41 @@ app.post("/api/v1/users", async (req: Request, res: Response) => {
         })
     }
 
+});
+
+app.put("/api/v1/users/:id",async (req: Request, res: Response) => {
+    try {
+
+        const {id}= req.params
+        const {name, password, is_Active, age} = req.body
+
+        const result = await pool.query(`
+            UPDATE users
+            SET
+            name = COALESCE($1, name),
+            password = COALESCE($2, password),
+            is_Active = COALESCE($3, is_Active),
+            age = COALESCE($4, age),
+            updated_at = NOW()
+
+            WHERE id=$5 RETURNING *
+
+            `, [name ?? null, password ?? null, is_Active ?? null, age ?? null, id])
+
+        res.status(201).json({
+            success: true,
+            message: "User Updated Successfully",
+            author: "Mezba Morsalin",
+            data: result.rows[0]
+        })
+        
+    } catch (error : any) {
+        res.status(500).json({
+        success: false,
+        message: error?.message,
+        data: null
+    })
+    }
 })
 
 app.listen(port, () => {
