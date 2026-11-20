@@ -47,13 +47,27 @@ app.get("/", (req : Request, res : Response) => {
     })
 });
 
-// app.get("/api/v1/users", (req : Request, res : Response) => {
-//     res.status(200).json({
-//         success : true,
-//         message : "This is Express User Root Route",
-//         author : "Mezba Morsalin"
-//     })
-// });
+app.get("/api/v1/users", async (req : Request, res : Response) => {
+
+    try {
+        const result = await pool.query(`
+        SELECT * FROM users
+        `)
+
+    res.status(200).json({
+        success : true,
+        message : "This is Express User Root Route",
+        author : "Mezba Morsalin",
+        data : result.rows
+    })
+    } catch (error : any) {
+        res.status(500).json({
+        success: false,
+        message: error?.message,
+        data: null
+    })
+    }
+});
 
 
 app.post("/api/v1/users", async (req : Request, res : Response) => {
