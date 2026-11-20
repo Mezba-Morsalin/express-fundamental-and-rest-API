@@ -70,40 +70,65 @@ app.get("/api/v1/users", async (req : Request, res : Response) => {
 });
 
 
-app.post("/api/v1/users", async (req : Request, res : Response) => {
-        try {
-            const {name , email, password ,age} = req.body
+app.get("/api/v1/users/:id", async (req : Request, res : Response) => {
+    try {
+
+        const {id} = req.params
+
+        const result = await pool.query(`
+            SELECT * FROM users WHERE id=$1
+            `,[id])
+
+            res.status(200).json({
+        success : true,
+        message : "This is Express User Root Route",
+        author : "Mezba Morsalin",
+        data : result.rows[0]
+    })
+        
+    } catch (error : any) {
+        res.status(500).json({
+        success: false,
+        message: error?.message,
+        data: null
+    })
+    }
+})
+
+app.post("/api/v1/users", async (req: Request, res: Response) => {
+
+    try {
+        const { name, email, password, age } = req.body
 
         const result = await pool.query(`
             INSERT INTO users (name, email, password, age) VALUES
             ($1, $2, $3, $4) RETURNING *
-            `,[name , email, password ,age]);
+        `, [name, email, password, age]);
 
-            // console.log(result);
+        res.status(201).json({
+            success: true,
+            message: "User Created Successfully",
+            author: "Mezba Morsalin",
+            data: result.rows[0]
+        })
 
-    res.status(201).json({
-        success : true,
-        message : "User Created Successfully",
-        author : "Mezba Morsalin",
-        data : result.rows[0]
-    })
-        } catch (error: any) {
+    } catch (error: any) {
 
-    if (error.code === "23505") {
-        return res.status(409).json({
+        if (error.code === "23505") {
+            return res.status(409).json({
+                success: false,
+                message: "Email already exists!",
+                data: null
+            })
+        }
+
+        res.status(500).json({
             success: false,
-            message: "Email already exists!",
+            message: error.message,
             data: null
         })
     }
 
-    res.status(500).json({
-        success: false,
-        message: error.message,
-        data: null
-    })
-}
-    
 })
 
 app.listen(port, () => {
