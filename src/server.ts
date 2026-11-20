@@ -54,6 +54,12 @@ app.get("/api/v1/users", async (req : Request, res : Response) => {
         SELECT * FROM users
         `)
 
+        if(result.rowCount === 0) {
+               return res.status(404).json({
+        success: false,
+        message: "User not Found"
+    })}
+
     res.status(200).json({
         success : true,
         message : "This is Express User Root Route",
@@ -78,6 +84,12 @@ app.get("/api/v1/users/:id", async (req : Request, res : Response) => {
         const result = await pool.query(`
             SELECT * FROM users WHERE id=$1
             `,[id])
+
+            if(result.rowCount === 0) {
+               return res.status(404).json({
+        success: false,
+        message: "User not Found"
+    })}
 
             res.status(200).json({
         success : true,
@@ -150,9 +162,47 @@ app.put("/api/v1/users/:id",async (req: Request, res: Response) => {
 
             `, [name ?? null, password ?? null, is_Active ?? null, age ?? null, id])
 
+            if(result.rowCount === 0) {
+               return res.status(404).json({
+        success: false,
+        message: "User not Found"
+    })}
+
         res.status(201).json({
             success: true,
             message: "User Updated Successfully",
+            author: "Mezba Morsalin",
+            data: result.rows[0]
+        })
+        
+    } catch (error : any) {
+        res.status(500).json({
+        success: false,
+        message: error?.message,
+        data: null
+    })
+    }
+})
+
+app.delete("/api/v1/users/:id", async(req: Request, res: Response) => {
+    try {
+
+        const {id} = req.params
+
+        const result = await pool.query(`
+            DELETE FROM users
+            WHERE id=$1 RETURNING *
+            `, [id])
+
+            if(result.rowCount === 0) {
+               return res.status(404).json({
+        success: false,
+        message: "User not Found"
+    })
+            }
+            res.status(201).json({
+            success: true,
+            message: "User Deleted Successfully",
             author: "Mezba Morsalin",
             data: result.rows[0]
         })
