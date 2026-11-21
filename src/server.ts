@@ -17,33 +17,7 @@ app.get("/", (req : Request, res : Response) => {
     })
 });
 
-app.get("/api/v1/users", async (req : Request, res : Response) => {
 
-    try {
-        const result = await pool.query(`
-        SELECT * FROM users
-        `)
-
-        if(result.rowCount === 0) {
-               return res.status(404).json({
-        success: false,
-        message: "User not Found"
-    })}
-
-    res.status(200).json({
-        success : true,
-        message : "This is Express User Root Route",
-        author : "Mezba Morsalin",
-        data : result.rows
-    })
-    } catch (error : any) {
-        res.status(500).json({
-        success: false,
-        message: error?.message,
-        data: null
-    })
-    }
-});
 
 
 app.get("/api/v1/users/:id", async (req : Request, res : Response) => {
