@@ -1,44 +1,12 @@
 import express, { type Application, type Request, type Response } from 'express';
-import { Pool } from 'pg';
-import config from './config';
+
+import { initDB, pool, port } from './db';
 
 const app : Application = express()
-
-const port = config.port
-
-const databaseString = config.connection_string
 
 app.use(express.json())
 app.use(express.text())
 app.use(express.urlencoded())
-
-const pool= new Pool({
-    connectionString : databaseString
-});
-
-// console.log(pool);
-
-const initDB = async () => {
-    try {
-        await pool.query(`
-            CREATE TABLE IF NOT EXISTS Users(
-            id SERIAL PRIMARY KEY,
-            name VARCHAR (255),
-            email VARCHAR (255) UNIQUE NOT NULL,
-            password VARCHAR (255) NOT NULL,
-            age INTEGER,
-            is_Active BOOLEAN DEFAULT true,
-
-            created_at TIMESTAMP DEFAULT NOW(),
-            updated_at TIMESTAMP DEFAULT NOW()
-            )
-            `)
-
-            console.log("Database Connected Successfully");
-    } catch (error) {
-        console.log(error);
-    }
-}
 
 initDB()
 
