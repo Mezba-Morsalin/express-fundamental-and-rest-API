@@ -1,14 +1,12 @@
 import express, { type Application, type Request, type Response } from 'express';
 
-import { initDB, pool, port } from './db';
+import { pool } from './db';
 
 const app : Application = express()
 
 app.use(express.json())
 app.use(express.text())
 app.use(express.urlencoded())
-
-initDB()
 
 app.get("/", (req : Request, res : Response) => {
     res.status(200).json({
@@ -187,6 +185,4 @@ app.delete("/api/v1/users/:id", async(req: Request, res: Response) => {
     }
 })
 
-app.listen(port, () => {
-    console.log(`Express Server is running on the ${port}`);
-})
+export default app

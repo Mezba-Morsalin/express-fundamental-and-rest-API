@@ -12,23 +12,23 @@ export const pool= new Pool({
 // console.log(pool);
 
 export const initDB = async () => {
-    try {
-        await pool.query(`
-            CREATE TABLE IF NOT EXISTS Users(
-            id SERIAL PRIMARY KEY,
-            name VARCHAR (255),
-            email VARCHAR (255) UNIQUE NOT NULL,
-            password VARCHAR (255) NOT NULL,
-            age INTEGER,
-            is_Active BOOLEAN DEFAULT true,
+  try {
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS users (
+        id SERIAL PRIMARY KEY,
+        name VARCHAR(255),
+        email VARCHAR(255) UNIQUE NOT NULL,
+        password VARCHAR(255) NOT NULL,
+        age INTEGER,
+        is_active BOOLEAN DEFAULT true,
+        created_at TIMESTAMP DEFAULT NOW(),
+        updated_at TIMESTAMP DEFAULT NOW()
+      )
+    `);
 
-            created_at TIMESTAMP DEFAULT NOW(),
-            updated_at TIMESTAMP DEFAULT NOW()
-            )
-            `)
-
-            console.log("Database Connected Successfully");
-    } catch (error) {
-        console.log(error);
-    }
-}
+    console.log("Database Connected Successfully");
+  } catch (error) {
+    console.error("Database Connection Failed:", error);
+    throw error;
+  }
+};
