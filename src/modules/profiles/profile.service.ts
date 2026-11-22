@@ -39,8 +39,27 @@ const getSingleProfileFromDB = async (id : string) => {
 
 }
 
+const updateProfileFromDB = async (payload : Partial <IProfile> , id : string) => {
+    const {address, bio, city, country,} = payload
+
+    const result = await pool.query(`
+        UPDATE profiles
+        SET
+        address = COALESCE($1, address),
+        bio = COALESCE($2, bio),
+        city = COALESCE($3, city),
+        country = COALESCE($4, country),
+        updated_at = NOW()
+
+        WHERE user_id=$5 RETURNING *
+        `,[address ?? null, bio ?? null, city ?? null, country ?? null, id])
+
+        return result
+}
+
 export const profileService = {
     createProfileIntoDB,
     getProfileFromDB,
-    getSingleProfileFromDB
+    getSingleProfileFromDB,
+    updateProfileFromDB
 }

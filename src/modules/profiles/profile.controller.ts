@@ -1,5 +1,5 @@
 import type { Request, Response } from "express";
-import { profileService } from "./profile.service";
+import { profileService } from './profile.service';
 
 const createProfile = async (req :Request , res : Response) => {
     try {
@@ -78,8 +78,36 @@ const getSingleProfile = async (req :Request , res : Response) => {
     }
 }
 
+const updateProfile = async (req :Request , res : Response) => {
+    try {
+        const {id} = req.params
+
+        const result = await profileService.updateProfileFromDB(req.body, id as string)
+
+        if(result.rowCount === 0) {
+               return res.status(404).json({
+        success: false,
+        message: "User Already Updated"
+    })}
+
+        res.status(200).json({
+            success: true,
+            message: " Profile Updated Successfully",
+            author: "Mezba Morsalin",
+            data: result.rows[0]
+        })
+    } catch (error : any) {
+        res.status(500).json({
+            success: false,
+            message: error.message,
+            data: null
+        })
+    }
+}
+
 export const profileController = {
     createProfile,
     getProfile,
-    getSingleProfile
+    getSingleProfile,
+    updateProfile,
 }
