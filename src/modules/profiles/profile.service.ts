@@ -15,7 +15,7 @@ const createProfileIntoDB = async (payload : IProfile) => {
 
     const result = pool.query( `
         INSERT INTO profiles(user_id, address, date_of_birth, bio, city, country, phone, gender) VALUES
-        ($1, $2, $3, $4, $5, $6, $7, $8)
+        ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *
         `,[user_id, address, date_of_birth, bio, city, country, phone, gender])
 
         return result
