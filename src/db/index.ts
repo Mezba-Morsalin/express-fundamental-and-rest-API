@@ -26,6 +26,26 @@ export const initDB = async () => {
       )
     `);
 
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS profile(
+      id SERIAL PRIMARY KEY,
+      user_id INT UNIQUE REFERENCES users(id) ON DELETE CASCADE,
+
+      bio TEXT,
+      address TEXT,
+      date_of_birth DATE,
+      city VARCHAR (100),
+      country VARCHAR (100),
+
+
+      phone VARCHAR(15),
+      gender VARCHAR(15),
+
+      created_at TIMESTAMP DEFAULT NOW(),
+      updated_at TIMESTAMP DEFAULT NOW()
+      )
+      `)
+
     console.log("Database Connected Successfully");
   } catch (error) {
     console.error("Database Connection Failed:", error);
