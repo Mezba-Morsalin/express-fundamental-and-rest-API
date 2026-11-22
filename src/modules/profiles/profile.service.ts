@@ -57,9 +57,19 @@ const updateProfileFromDB = async (payload : Partial <IProfile> , id : string) =
         return result
 }
 
+const deleteProfileFromDB = async ( id : string ) => {
+    const result = await pool.query(`
+        DELETE FROM profiles
+        WHERE user_id=$1
+        `,[id])
+
+        return result 
+}
+
 export const profileService = {
     createProfileIntoDB,
     getProfileFromDB,
     getSingleProfileFromDB,
-    updateProfileFromDB
+    updateProfileFromDB,
+    deleteProfileFromDB
 }
