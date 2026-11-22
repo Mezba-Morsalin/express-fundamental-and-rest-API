@@ -84,11 +84,12 @@ const updateProfile = async (req :Request , res : Response) => {
 
         const result = await profileService.updateProfileFromDB(req.body, id as string)
 
-        if(result.rowCount === 0) {
-               return res.status(404).json({
+       if (result.rowCount === 0) {
+    return res.status(404).json({
         success: false,
-        message: "User Already Updated"
-    })}
+        message: "Profile not found. Please check the user ID."
+    });
+}
 
         res.status(200).json({
             success: true,
