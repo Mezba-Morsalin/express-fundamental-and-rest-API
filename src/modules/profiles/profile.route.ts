@@ -5,4 +5,6 @@ const router = Router();
 
 router.post("/", profileController.createProfile)
 
+router.get("/" , profileController.getProfile)
+
 export const profileRoute = router

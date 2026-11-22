@@ -21,6 +21,16 @@ const createProfileIntoDB = async (payload : IProfile) => {
         return result
 }
 
+const getProfileFromDB = async () => {
+    const result = await pool.query(`
+            SELECT * FROM profiles
+            `)
+
+    return result
+
+}
+
 export const profileService = {
-    createProfileIntoDB
+    createProfileIntoDB,
+    getProfileFromDB
 }
