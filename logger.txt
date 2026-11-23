@@ -1,0 +1,10 @@
+
+Method : GET | url : /products | Time : 1795458965652
+
+Method : GET | url : /api/v1/users | Time : 1795458967509
+
+Method : GET | url : /products | Time : 1795458997740
+
+Method : GET | url : /api/v1/users | Time : 1795458999763
+
+Method : GET | url : /api/v1/users | Time : 1795459008573
