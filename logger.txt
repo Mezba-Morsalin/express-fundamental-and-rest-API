@@ -8,3 +8,21 @@ Method : GET | url : /products | Time : 1795458997740
 Method : GET | url : /api/v1/users | Time : 1795458999763
 
 Method : GET | url : /api/v1/users | Time : 1795459008573
+
+Method : GET | url : /api/v1/users | Time : 1795461498739
+
+Method : GET | url : /api/v1/users | Time : 1795461499409
+
+Method : GET | url : /api/v1/profiles | Time : 1795461503118
+
+Method : GET | url : /api/v1/profiles | Time : 1795461504816
+
+Method : GET | url : /api/v1/profiles | Time : 1795461505313
+
+Method : GET | url : /api/v1/profiles | Time : 1795461505472
+
+Method : GET | url : /api/v1/profiles | Time : 1795461505649
+
+Method : GET | url : /api/v1/profiles | Time : 1795461505816
+
+Method : GET | url : /api/v1/profiles | Time : 1795461529494
