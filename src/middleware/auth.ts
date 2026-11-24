@@ -22,18 +22,20 @@ const auth = async (req : Request, res : Response, next :NextFunction) => {
         `,[decode.email])
 
         if (user.rowCount === 0) {
-            res.status(404).json({
+           return res.status(404).json({
         success : false,
         message : "User Doesn't Exist!!!"
     })
         }
 
         if(!user.rows[0].is_active) {
-            res.status(404).json({
+           return res.status(404).json({
         success : false,
         message : "Forbidden!!!"
     })
-        }
+        } 
+
+        req.user = decode
 
     next()
    } catch (error) {
