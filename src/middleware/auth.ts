@@ -5,37 +5,43 @@ import { pool } from "../db";
 
 const auth = async (req : Request, res : Response, next :NextFunction) => {
     
-    const token = req.headers.authorization
+   try {
+     const token = req.headers.authorization
 
     if(!token) {
-        res.status(404).json({
+       return res.status(404).json({
         success : false,
         message : "Unauthorized Access!!!"
     })
     }
 
-    const decode = jwt.verify(token as string , config.jwt_secret) as JwtPayload;
+    const decode = jwt.verify(token as string, config.jwt_secret) as JwtPayload
 
     const user = await pool.query(`
         SELECT * FROM users WHERE email=$1
-        `, [decode.email])
+        `,[decode.email])
 
-        if(user.rowCount === 0) {
+        if (user.rowCount === 0) {
             res.status(404).json({
         success : false,
-        message : "User Not Found"
-    });
-}
+        message : "User Doesn't Exist!!!"
+    })
+        }
 
-    if (!user.rows[0].is_active) {
-        res.status(404).json({
+        if(!user.rows[0].is_active) {
+            res.status(404).json({
         success : false,
         message : "Forbidden!!!"
-    });
-    }
-
+    })
+        }
 
     next()
+   } catch (error) {
+    res.status(401).json({
+        success : false,
+        message : "Invalid or Expired Token!!!"
+    })
+   }
 }
 
 export default auth
