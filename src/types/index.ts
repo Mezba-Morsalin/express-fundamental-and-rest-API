@@ -1,0 +1,1 @@
+export type TypeByRole = "admin" | "moderator" | "user"
