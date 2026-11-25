@@ -3,7 +3,7 @@ import jwt, { type JwtPayload } from 'jsonwebtoken';
 import config from "../config";
 import { pool } from "../db";
 
-const auth = (...role : any) => {
+const auth = (...roles : any) => {
     return async (req : Request, res : Response, next :NextFunction) => {
 
         // console.log(role);
@@ -37,6 +37,13 @@ const auth = (...role : any) => {
         message : "Forbidden!!!"
     })
         } 
+
+        if(roles.length && !roles.includes(user.rows[0].role)) {
+            return res.status(404).json({
+        success : false,
+        message : "Unauthorized Access!!!"
+    })
+        }
 
         req.user = decode
 
