@@ -2,14 +2,10 @@
 import { Router } from "express";
 import { userController } from "./user.controller";
 import auth from "../../middleware/auth";
+import { roles } from "../../types";
 
 const router = Router();
 
-const roles = {
-    admin : "admin",
-    moderator : "moderator",
-    user : "user"
-} as const
 
 router.post("/", userController.createUser);
 
