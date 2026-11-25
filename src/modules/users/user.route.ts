@@ -15,6 +15,6 @@ router.get("/:id", auth(roles.admin, roles.moderator), userController.getSingleU
 
 router.put("/:id", auth(roles.admin, roles.user), userController.updateUser);
 
-router.delete("/:id", userController.deleteUser);
+router.delete("/:id", auth(roles.admin, roles.user), userController.deleteUser);
 
 export const userRoute = router;
