@@ -11,7 +11,7 @@ router.post("/", userController.createUser);
 
 router.get("/",auth(roles.admin, roles.moderator, roles.user), userController.getUser);
 
-router.get("/:id", userController.getSingleUser);
+router.get("/:id", auth(roles.admin, roles.moderator), userController.getSingleUser);
 
 router.put("/:id", userController.updateUser);
 
