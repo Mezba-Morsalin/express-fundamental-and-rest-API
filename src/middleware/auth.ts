@@ -3,7 +3,10 @@ import jwt, { type JwtPayload } from 'jsonwebtoken';
 import config from "../config";
 import { pool } from "../db";
 
-const auth = async (req : Request, res : Response, next :NextFunction) => {
+const auth = (...role : any) => {
+    return async (req : Request, res : Response, next :NextFunction) => {
+
+        // console.log(role);
     
    try {
      const token = req.headers.authorization
@@ -44,6 +47,7 @@ const auth = async (req : Request, res : Response, next :NextFunction) => {
         message : "Invalid or Expired Token!!!"
     })
    }
+}
 }
 
 export default auth
