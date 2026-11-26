@@ -6,6 +6,9 @@ const loginUser = async (req : Request , res : Response) => {
 
         const result = await authServices.loginUserIntoDB(req.body)
 
+        const {refreshToken} = result
+
+        
 
         res.status(201).json({
             success: true,
