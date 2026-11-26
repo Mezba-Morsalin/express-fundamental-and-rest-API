@@ -270,3 +270,5 @@ Method : GET | url : /api/v1/users | Time : 1795682542491
 Method : GET | url : /api/v1/users | Time : 1795682572239
 
 Method : POST | url : /api/v1/auth/login | Time : 1795686125137
+
+Method : POST | url : /api/v1/auth/login | Time : 1795687021640

@@ -8,7 +8,13 @@ const loginUser = async (req : Request , res : Response) => {
 
         const {refreshToken} = result
 
-        
+        res.cookie("refreshToken", refreshToken, {
+            secure : false,
+            httpOnly : true,
+            sameSite : "lax",
+            path : "/",
+            domain : "localhost"
+        })
 
         res.status(201).json({
             success: true,
