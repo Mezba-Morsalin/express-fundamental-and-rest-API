@@ -3,6 +3,7 @@ import { userRoute } from './modules/users/user.route';
 import { profileRoute } from './modules/profiles/profile.route';
 import { authRouter } from './modules/auth/auth.route';
 import logger from './middleware/logger';
+import globalErrorHandler from './middleware/globalErrorHandler';
 
 const app : Application = express()
 
@@ -19,22 +20,12 @@ app.get("/", (req : Request, res : Response) => {
     })
 });
 
-
-app.use((err, req, res, next) => {
-  console.error(err.stack); // Log the error
-
-  res.status(500).json({
-    success: false,
-    message: err.message || "Internal Server Error",
-  });
-});
-
-
-
 app.use("/api/v1/users", userRoute)
 
 app.use("/api/v1/profiles", profileRoute)
 
 app.use("/api/v1/auth", authRouter)
+
+app.use(globalErrorHandler);
 
 export default app

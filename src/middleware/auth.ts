@@ -49,12 +49,12 @@ const auth = (...roles : TypeByRole []) => {
         req.user = decode
 
     next()
-   } catch (error) {
-    res.status(401).json({
-        success : false,
-        message : "Invalid or Expired Token!!!"
-    })
-   }
+   } catch (error : any) {
+    const err = new Error(error);
+    (err as any).status = 401;
+
+    next(err);
+}
 }
 }
 
