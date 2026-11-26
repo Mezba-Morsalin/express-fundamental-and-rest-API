@@ -26,6 +26,7 @@
     "typescript": "^7.0.2"
   },
   "dependencies": {
+    "@types/cors": "^2.8.19",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/pg": "^8.23.1",
     "bcryptjs": "^3.0.3",
