@@ -20,6 +20,17 @@ app.get("/", (req : Request, res : Response) => {
 });
 
 
+app.use((err, req, res, next) => {
+  console.error(err.stack); // Log the error
+
+  res.status(500).json({
+    success: false,
+    message: err.message || "Internal Server Error",
+  });
+});
+
+
+
 app.use("/api/v1/users", userRoute)
 
 app.use("/api/v1/profiles", profileRoute)
