@@ -34,7 +34,7 @@ const loginUserIntoDB = async (payload : {email : string; password : string}) =>
             role : user.rows[0].role
         }
 
-        const accessToken = jwt.sign(jwtPayload, config.jwt_secret, {expiresIn : "1d"})
+        const accessToken = jwt.sign(jwtPayload, config.jwt_secret, {expiresIn : "1h"})
         const refreshToken = jwt.sign(jwtPayload, config.jwt_refresh_secret, {expiresIn : "1d"})
 
         delete user.rows[0].password
