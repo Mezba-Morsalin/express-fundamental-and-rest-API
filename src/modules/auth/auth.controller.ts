@@ -6,6 +6,7 @@ const loginUser = async (req : Request , res : Response) => {
 
         const result = await authServices.loginUserIntoDB(req.body)
 
+
         res.status(201).json({
             success: true,
             message: "User Logged in Successfully",

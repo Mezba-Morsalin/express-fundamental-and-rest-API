@@ -39,7 +39,7 @@ const loginUserIntoDB = async (payload : {email : string; password : string}) =>
 
         delete user.rows[0].password
 
-        return {accessToken, user : user.rows[0]}
+        return {accessToken, refreshToken, user : user.rows[0]}
 }
 
 export const authServices = {
