@@ -310,3 +310,27 @@ Method : POST | url : /api/v1/auth/refresh-token | Time : 1795699787112
 Method : POST | url : /api/v1/users | Time : 1795759191310
 
 Method : POST | url : /api/v1/users | Time : 1795759277191
+
+Method : POST | url : /api/v1/users | Time : 1795759969437
+
+Method : GET | url : /api/v1/users | Time : 1795761419028
+
+Method : GET | url : /api/v1/users | Time : 1795761426511
+
+Method : GET | url : /api/v1/users | Time : 1795761459890
+
+Method : POST | url : /api/v1/auth/login | Time : 1795761463899
+
+Method : GET | url : /api/v1/users | Time : 1795761512903
+
+Method : GET | url : /api/v1/users/1 | Time : 1795762036772
+
+Method : GET | url : /api/v1/users/1 | Time : 1795762055099
+
+Method : GET | url : /api/v1/users | Time : 1795762063540
+
+Method : GET | url : /api/v1/users/1 | Time : 1795762071756
+
+Method : POST | url : /api/v1/auth/login | Time : 1795762142747
+
+Method : GET | url : /api/v1/users/1 | Time : 1795762155467

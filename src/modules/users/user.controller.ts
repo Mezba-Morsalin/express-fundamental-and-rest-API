@@ -14,22 +14,26 @@ const createUser = async (req: Request, res: Response) => {
             data : result.rows[0]
         })
 
-    } catch (error: any) {
+    } 
+catch (error: any) {
 
-        if (error.code === "23505") {
-            return res.status(409).json({
-                success: false,
-                message: "Email already exists!",
-                data: null
-            })
-        }
-
-        res.status(500).json({
+    if (error.code === "23505") {
+        return sendResponse(res, {
+            status: 409,
             success: false,
-            message: error.message,
+            message: "Email already exists!",
             data: null
-        })
+        });
     }
+
+    return sendResponse(res, {
+        status: 500,
+        success: false,
+        message: error.message || "Internal Server Error",
+        data: null
+    });
+}
+
 }
 
 const getUser = async (req : Request, res : Response) => {
@@ -39,23 +43,24 @@ const getUser = async (req : Request, res : Response) => {
         const result = await userService.getUserFromDB()
 
         if(result.rowCount === 0) {
-               return res.status(404).json({
-        success: false,
-        message: "User not Found"
-    })}
+               return sendResponse(res, {
+                status : 404,
+                success : false,
+                message : "User not Found",
+               })}
 
-    res.status(200).json({
+    sendResponse(res, {
+        status : 200,
         success : true,
         message : "This is Express User Root Route",
-        author : "Mezba Morsalin",
         data : result.rows
     })
     } catch (error : any) {
-        res.status(500).json({
-        success: false,
-        message: error?.message,
-        data: null
-    })
+        sendResponse(res, {
+            status : 500,
+            success : false,
+            message : error?.message
+        })
     }
 }
 
@@ -67,24 +72,25 @@ const getSingleUser = async (req : Request, res : Response) => {
         const result = await userService.getSingleUserFromDB(id as string)
 
             if(result.rowCount === 0) {
-               return res.status(404).json({
-        success: false,
-        message: "User not Found"
-    })}
+               return sendResponse(res, {
+                status : 404,
+                success : false,
+                message : "User not Found",
+               })}
 
-            res.status(200).json({
+    sendResponse(res, {
+        status : 200,
         success : true,
-        message : "This is Express User Root Route",
-        author : "Mezba Morsalin",
+        message : "This is Express Single User Route",
         data : result.rows[0]
     })
         
     } catch (error : any) {
-        res.status(500).json({
-        success: false,
-        message: error?.message,
-        data: null
-    })
+         sendResponse(res, {
+            status : 500,
+            success : false,
+            message : error?.message
+        })
     }
 }
 
@@ -96,24 +102,25 @@ const updateUser = async (req: Request, res: Response) => {
         const result = await userService.updateUserFromDB(req.body, id as string)
 
             if(result.rowCount === 0) {
-               return res.status(404).json({
-        success: false,
-        message: "User not Found"
-    })}
+               return sendResponse(res, {
+                status : 404,
+                success : false,
+                message : "User not Found",
+               })}
 
-        res.status(201).json({
-            success: true,
-            message: "User Updated Successfully",
-            author: "Mezba Morsalin",
-            data: result.rows[0]
-        })
+    sendResponse(res, {
+        status : 201,
+        success : true,
+        message : "User Updated Successfully",
+        data : result.rows[0]
+    })
         
     } catch (error : any) {
-        res.status(500).json({
-        success: false,
-        message: error?.message,
-        data: null
-    })
+         sendResponse(res, {
+            status : 500,
+            success : false,
+            message : error?.message
+        })
     }
 }
 
@@ -124,25 +131,26 @@ const deleteUser = async(req: Request, res: Response) => {
 
         const result = await userService.deleteUserFromDB(id as string)
 
-            if(result.rowCount === 0) {
-               return res.status(404).json({
-        success: false,
-        message: "User not Found"
+           if(result.rowCount === 0) {
+               return sendResponse(res, {
+                status : 404,
+                success : false,
+                message : "User not Found",
+               })}
+
+    sendResponse(res, {
+        status : 201,
+        success : true,
+        message : "User Deleted Successfully",
+        data : result.rows[0]
     })
-            }
-            res.status(201).json({
-            success: true,
-            message: "User Deleted Successfully",
-            author: "Mezba Morsalin",
-            data: result.rows[0]
-        })
         
     } catch (error : any) {
-        res.status(500).json({
-        success: false,
-        message: error?.message,
-        data: null
-    })
+         sendResponse(res, {
+            status : 500,
+            success : false,
+            message : error?.message
+        })
     }
 }
 
