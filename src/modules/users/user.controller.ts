@@ -1,16 +1,17 @@
 import type { Request, Response } from "express";
 import { userService } from "./user.service";
+import sendResponse from "../../utils/sendResponse";
 
 const createUser = async (req: Request, res: Response) => {
     try {
         
         const result = await userService.createUserDB(req.body)
 
-        res.status(201).json({
-            success: true,
-            message: "User Created Successfully",
-            author: "Mezba Morsalin",
-            data: result.rows[0]
+        sendResponse(res, {
+            status : 201,
+            success : true,
+            message : "User Created Successfully",
+            data : result.rows[0]
         })
 
     } catch (error: any) {

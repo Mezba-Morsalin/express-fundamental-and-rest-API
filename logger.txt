@@ -306,3 +306,7 @@ Method : POST | url : /api/v1/auth/refresh-token | Time : 1795699691995
 Method : POST | url : /api/v1/auth/refresh-token | Time : 1795699707413
 
 Method : POST | url : /api/v1/auth/refresh-token | Time : 1795699787112
+
+Method : POST | url : /api/v1/users | Time : 1795759191310
+
+Method : POST | url : /api/v1/users | Time : 1795759277191
